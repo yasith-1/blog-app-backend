@@ -19,7 +19,6 @@ public class PostService {
     PostRepository postRepository;
 
 
-
     public List<Post> getAllPosts() {
         if (postRepository.findAll().isEmpty()) {
             return null;
@@ -69,5 +68,28 @@ public class PostService {
         } else {
             return "Failed to save post.";
         }
+    }
+
+    public Post getSpecifyPost(Integer id) {
+
+        boolean isPresent = postRepository.findById(id).isPresent();
+
+        if (isPresent) {
+            PostEntity postEntity = postRepository.findById(id).get();
+
+            Post post = new Post(postEntity.getId(),
+                    postEntity.getTitle(),
+                    postEntity.getContent(),
+                    postEntity.getTag(),
+                    postEntity.getCategory(),
+                    postEntity.getCommentCount(),
+                    postEntity.getCreatedAt(),
+                    postEntity.getUpdatedAt(),
+                    postEntity.getImageUrl());
+
+            return post;
+        }
+
+        return null;
     }
 }

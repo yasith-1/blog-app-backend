@@ -24,4 +24,15 @@ public class PostController {
     public String addPost(@RequestBody Post post) {
         return service.addPost(post);
     }
+
+    @GetMapping("id/{id}")
+    public <T> T getPost(@PathVariable Integer id) {
+
+        if (service.getSpecifyPost(id) != null) {
+            return (T) service.getSpecifyPost(id);
+        } else {
+            return (T) (String) "Post Not fount try again !";
+        }
+    }
+
 }
