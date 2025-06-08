@@ -2,6 +2,7 @@ package edu.icet.blogpostApp.controller;
 
 import edu.icet.blogpostApp.dto.Post;
 import edu.icet.blogpostApp.service.PostService;
+import edu.icet.blogpostApp.service.impl.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,15 @@ public class PostController {
             return (T) service.getSpecifyPost(id);
         } else {
             return (T) (String) "Post Not fount try again !";
+        }
+    }
+
+    @PutMapping("/update-post")
+    public String updatePost(@RequestBody Post post) {
+        if (service.updatePost(post)) {
+            return "Post Updated Successfully !";
+        } else {
+            return "Update Failed try again !";
         }
     }
 
